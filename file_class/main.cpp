@@ -1,4 +1,5 @@
 #include "file.hpp"
+#include "analyzefile.hpp"
 
 int main()
 {
@@ -6,6 +7,8 @@ int main()
     f.saveFile();
     f.readFile();
     f.showFile();
+
+    // std::cout << f.countFileLines() << std::endl;
 
     return 0;
 }

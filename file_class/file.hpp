@@ -1,3 +1,6 @@
+#ifndef FILE_HPP
+#define FILE_HPP
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -5,7 +8,7 @@
 
 class File
 {
-private:
+protected:
     std::string _fileName;
     std::vector<std::string> _lines;
 
@@ -18,4 +21,8 @@ public:
     void readFile();
     // Deklaracja metody showFile()
     void showFile();
+
+    
 };
+
+#endif
