@@ -9,21 +9,12 @@ int AnalyzedFile::countWords()
     int wordCount = 0;
     for (const std::string &line : _lines)
     {
-        bool inWord = false;
+        char prev = ' ';
         for (char ch : line)
         {
-            if (!isspace(ch))
-            {
-                if (!inWord)
-                {
-                    wordCount++;
-                    inWord = true;
-                }
-            }
-            else
-            {
-                inWord = false;
-            }
+            if (!isspace(ch) && isspace(prev))
+                wordCount++;
+            prev = ch;
         }
     }
     return wordCount;
@@ -31,31 +22,16 @@ int AnalyzedFile::countWords()
 
 int AnalyzedFile::countOccurrences(const std::string &word)
 {
-    if (_lines.empty() || word.empty())
-        return 0;
-
-    int occurrences = 0;
-    for (const std::string &line : _lines)
-    {
-        size_t pos = 0;
-        while ((pos = line.find(word, pos)) != std::string::npos)
-        {
-            // upewnij się, że to całe słowo (nie fragment)
-            bool isStartOk = (pos == 0 || isspace(line[pos - 1]));
-            bool isEndOk = (pos + word.length() >= line.length() || isspace(line[pos + word.length()]));
-
-            if (isStartOk && isEndOk)
-                occurrences++;
-
-            pos += word.length(); // przesuwamy wskaźnik
-        }
-    }
-    return occurrences;
+    return 0;
 }
+
 
 int AnalyzedFile::countFileLines()
 {
-    return static_cast<int>(_lines.size());
+    int count = 0;
+    for (size_t i = 0; i < _lines.size(); ++i)
+        count++;
+    return count;
 }
 
 void AnalyzedFile::toUpperCase()
@@ -84,6 +60,5 @@ void AnalyzedFile::toLowerCase()
 
 void AnalyzedFile::showStats()
 {
-    std::cout << "Liczba linii: " << countFileLines() << "\n";
-    std::cout << "Liczba słów: " << countWords() << "\n";
+    
 }
